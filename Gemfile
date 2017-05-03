@@ -16,7 +16,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'haml'
 gem 'spring-commands-rspec'
-gem 'devise',  git: 'https://github.com/plataformatec/devise.git' 
+gem 'devise',  git: 'https://github.com/plataformatec/devise.git'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
