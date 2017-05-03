@@ -18,4 +18,4 @@
 
 .byebug_history
 
-app/config/secrets.yml
+/config/secrets.yml
