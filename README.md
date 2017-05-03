@@ -1,7 +1,8 @@
-# README
+# Week 8
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Yelp clone: Intro to Rails 
+
+* Ruby version '2.4.1'
 
 Things you may want to cover:
 
