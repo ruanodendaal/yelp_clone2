@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # if at a later date users can be deleted, so should their restaurants
-  # has_many :restaurants, through: :reviews
-  # has_many :reviews
+  has_many :restaurants
+  has_many :reviews
   has_many :reviewed_restaurants, through: :reviews, source: :restaurant
 
   # Include default devise modules. Others available are:

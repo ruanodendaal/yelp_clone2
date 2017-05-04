@@ -11,7 +11,6 @@ RSpec.describe Restaurant, type: :model do
 
   it 'is not valid unless it has a unique name' do
     user = User.create(email: "dog@dog.com", password: 'password123')
-    # require 'pry'; binding.pry
     user.restaurants.create(name: "Moe's tavern")
     restaurant = user.restaurants.new(name: "Moe's tavern")
     expect(restaurant).to have(1).error_on(:name)
