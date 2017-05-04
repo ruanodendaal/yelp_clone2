@@ -16,12 +16,7 @@ feature 'User can sign in and out' do
 
   context 'user signed in on the homepage' do
     before do
-      visit '/'
-      click_link('Sign up')
-      fill_in('Email', with: 'test@example.com')
-      fill_in('Password', with: 'testtest')
-      fill_in('Password confirmation', with: 'testtest')
-      click_button('Sign up')
+      sign_up
     end
 
     it "should see 'sign out' link" do
@@ -33,6 +28,26 @@ feature 'User can sign in and out' do
       visit '/'
       expect(page).not_to have_link('Sign in')
       expect(page).not_to have_link('Sign up')
+    end
+  end
+end
+
+feature 'User limits' do
+  context "Users can only edit/delete restaurants which they've created" do
+    before do
+      sign_up
+      click_link 'Sign out'
+      sign_up(email: 'cat@cat.com')
+      click_link 'Sign out'
+    end
+
+    it 'should only be able to edit their own restaurant' do
+      visit root_path
+      login
+      create_restaurant(name: 'Tom & Jerry')
+      sign_out
+      login(email: 'cat@cat.com')
+      expect(page).not_to have_link 'Edit Tom & Jerry'
     end
   end
 end
