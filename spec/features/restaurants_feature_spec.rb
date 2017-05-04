@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 feature 'Restaurants' do
+
+
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
       visit '/restaurants'
@@ -23,6 +25,7 @@ feature 'Restaurants' do
 
   context 'creating restaurants' do
     scenario 'prompt user to fill out a form, then displays the new restaurant' do
+      signup
       visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: 'KFC'
@@ -33,6 +36,7 @@ feature 'Restaurants' do
 
     context 'invalid restaurant' do
       scenario 'does not let user submit a name that is too short' do
+        signup
         visit '/restaurants'
         click_link 'Add a restaurant'
         fill_in 'Name', with: 'kf'
@@ -57,6 +61,7 @@ feature 'Restaurants' do
   context 'editing restaurants' do
     before {Restaurant.create name: 'KFC', description: 'deep fried goodness', id: 1}
     scenario 'let a user edit a restaurant' do
+      signup
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -72,10 +77,20 @@ feature 'Restaurants' do
   context 'deleting restaurants' do
     before {Restaurant.create name: 'KFC', description: 'deep fried goodness'}
     scenario 'removes a restaurant when user clicks delete link' do
+      signup
       visit '/restaurants'
       click_link 'Delete KFC'
       expect(page).not_to have_content 'KFC'
       expect(page).to have_content 'Restaurant deleted successfully'
+    end
+  end
+
+  context 'limits on what users can do' do
+    scenario "site visiter can't add a restaurant" do
+      visit root_path
+      click_link "Add a restaurant"
+      expect(page).not_to have_content "Create restaurant"
+      expect(page).to have_content "Log in"
     end
   end
 
