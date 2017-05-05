@@ -1,4 +1,4 @@
-module RestaurantsHelpers
+module RestaurantHelpers
 
   def create_restaurant(name: 'Hotdog')
     click_link 'Add a restaurant'
