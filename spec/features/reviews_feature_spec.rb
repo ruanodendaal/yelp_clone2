@@ -36,4 +36,23 @@ feature 'reviewing' do
     expect(page).not_to have_content 'Delete review'
   end
 
+  context 'view average rating' do
+    before do
+      sign_out
+      sign_up(email: 'cat@cat.com')
+    end
+
+    scenario '1 review returns that rating' do
+      write_review(rating: 4)
+      expect(page).to have_content('Average rating: ★★★★☆')
+    end
+
+    scenario 'returns the average' do
+      write_review(rating: 1)
+      sign_out
+      sign_up(email: 'sheep@cat.com')
+      write_review(rating: 5)
+      expect(page).to have_content('Average rating: ★★★☆☆')
+    end
+  end
 end

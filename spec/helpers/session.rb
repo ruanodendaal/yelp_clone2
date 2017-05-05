@@ -3,7 +3,7 @@ module SessionHelpers
   def sign_up(email: 'dog@dog.com',
              password: 'dogdog',
              password_confirmation: 'dogdog')
-    visit '/'
+    visit root_path
     click_link "Sign up"
     fill_in "Email", with: email
     fill_in "Password", with: password
