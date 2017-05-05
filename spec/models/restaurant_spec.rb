@@ -29,7 +29,7 @@ RSpec.describe Restaurant, type: :model do
       end
 
       it 'builds a review associated with the specified user' do
-        expect(review.user).to eq user
+        expect(review.user).to eq user 
       end
     end
   end

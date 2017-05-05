@@ -4,3 +4,5 @@
 - @restaurant.reviews.each do |review|
  %p= review.thoughts
  %p= review.rating
+ - if current_user == review.user
+  %p= link_to "Delete review", restaurant_review_path(@restaurant, review), method: :delete

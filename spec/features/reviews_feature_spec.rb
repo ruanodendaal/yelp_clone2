@@ -16,4 +16,24 @@ feature 'reviewing' do
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content 'so so'
   end
+
+  scenario 'allows user to delete their own reviews' do
+    sign_out
+    sign_up(email: 'cat@cat.com')
+    write_review(thoughts: 'Amazing')
+    click_link 'Hotdog'
+    click_link 'Delete review'
+    expect(page).not_to have_content 'Amazing'
+  end
+
+  scenario 'user can only delete own reviews' do
+    sign_out
+    sign_up(email: 'cat@cat.com')
+    write_review(thoughts: 'Amazing')
+    sign_out
+    login
+    click_link 'Hotdog'
+    expect(page).not_to have_content 'Delete review'
+  end
+
 end
