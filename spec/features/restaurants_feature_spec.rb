@@ -42,13 +42,41 @@ feature 'Restaurants' do
   end
 
   context 'viewing restaurants' do
-
     scenario 'lets a user view a restaurant' do
       sign_up
       create_restaurant(name: 'Tom & Jerry')
       click_link 'Tom & Jerry'
       expect(page).to have_content 'Tom & Jerry'
       expect(current_path).to eq "/restaurants/#{Restaurant.last.id}"
+    end
+  end
+
+  context 'viewing restaurant reviews' do
+    before do
+      sign_up
+      create_restaurant
+      sign_out
+      sign_up(email: 'cat@cat.com')
+      write_review(thoughts: 'meh, do not rate this')
+      sign_out
+      sign_up(email: 'sheep@cat.com')
+      write_review(thoughts: 'baaaaa')
+      sign_out
+      sign_up(email: 'donkey@cat.com')
+      write_review(thoughts: 'eeeawww')
+      sign_out
+      sign_up(email: 'hen@cat.com')
+      write_review(thoughts: 'better than KFC')
+    end
+
+    scenario 'lets users see 3 reviews' do
+      expect(page).not_to have_content 'better than KFC'
+    end
+
+    scenario 'let users see all reviews on restaurant page' do
+      visit root_path
+      click_link 'Hotdog'
+      expect(page).to have_content 'better than KFC'
     end
   end
 
