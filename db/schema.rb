@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20170504164213) do
     t.bigint "reviews_id"
     t.bigint "user_id"
     t.index ["restaurant_id"], name: "index_reviews_on_restaurant_id"
-    t.index ["reviews_id"], name: "index_reviews_on_reviews_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
@@ -56,12 +55,9 @@ ActiveRecord::Schema.define(version: 20170504164213) do
     t.bigint "user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["user_id"], name: "index_users_on_user_id"
   end
 
   add_foreign_key "restaurants", "users"
   add_foreign_key "reviews", "restaurants"
-  add_foreign_key "reviews", "reviews", column: "reviews_id"
   add_foreign_key "reviews", "users"
-  add_foreign_key "users", "users"
 end
